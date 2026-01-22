@@ -1,12 +1,12 @@
 package org.example.services;
 
 public class PolicyChecker {
-    public boolean[] buildFUV(boolean[][] pum, boolean[] puv) {
-        int N = puv.length; // expect 15
-        boolean[] fuv = new boolean[N];
+    public boolean[] check(boolean[][] preliminaryUnlockingsMat, boolean[] preliminaryUnlockingsVec) {
+        int N = preliminaryUnlockingsVec.length; // expect 15
+        boolean[] finalUnlockings = new boolean[N];
 
         // TODO: Iterate logic
 
-        return fuv;
+        return finalUnlockings;
     }
 }
