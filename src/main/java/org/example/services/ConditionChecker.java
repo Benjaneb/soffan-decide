@@ -11,10 +11,10 @@ public class ConditionChecker {
         return conditionsMet;
     }
 
-    // Example private helper signatures:
-    // private boolean lic0(Point[] points, double length1) { ... }
+    // Example helper signatures:
+    // public boolean lic0(Point[] points, double length1) { ... }
 
-    private boolean checkCondition1(Point[] points, double radius1) {
+    public boolean checkCondition1(Point[] points, double radius1) {
         for (int i = 0; i < points.length - 2; i++) {
             double meanX = (points[i].x() + points[i + 1].x() + points[i + 2].x()) / 3;
             double meanY = (points[i].y() + points[i + 1].y() + points[i + 2].y()) / 3;
