@@ -7,6 +7,8 @@ import java.lang.Math;
  */
 public record Point(double x, double y){
     public static double distance(Point p1, Point p2) {
-        return Math.sqrt(p1 * p1 + p2 * p2);
+        double deltaX = p1.x() - p2.x();
+        double deltaY = p1.y() - p2.y();
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 }
