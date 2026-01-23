@@ -19,7 +19,7 @@ To ensure our history is readable, automated tools work correctly, and our workf
 
 <br>
 
-## 1. Branches & Pull Requests
+## 1. Branches
 
 ### Naming
 
@@ -28,53 +28,32 @@ We use the following structure for branch names to ensure context and traceabili
 `<type>/decide-<issue-number>`
 
 * **Type:** Must match one of the allowed commit types.
-* **Issue ID:** The specific issue number from our issue tracker.
+* **Issue Number:** The specific issue number from our issue tracker.
+
+<br>
 
 **Examples:**
 * `feat/decide-1`
 * `fix/decide-2`
 * `docs/decide-3`
 
+<br>
+
+**Other notes**
+- Branch type reflects the primary intent, commit types inside the branch can vary.
+
+<br>
+
+## 2. Pull Requests and Merging
+
 ### Merge strategy
 The repo is set up to only allow **"squash merges"**. Therefore, make sure the "Pull Request title" follows the convention:
 
 ```<type>: <subject>. #<issue-number>```
 
-### Other notes
-- Feature and fix branches **should be deleted** after merge.
-- Branch type reflects the primary intent, commit types inside the branch can vary.
-
 <br>
 
-## 2. Commit Message Structure
-
-### 2.1. Merge Commits
-Since we are using "squash merging", the following convention applies to the **"final merge commit"**:
-
-```text
-<type>: <subject>
-
-<optional body>
-
-Closes #<issue-number>
-```
-**Subject Line**: Use the imperative tense (e.g., "add" not "added" or "adding").
-
-**Body (Optional)**: Use if the change requires explanation. Focus on **what** and **why**, not *how*.
-
-### Example
-```text
-fix: handle null token in session storage
-
-The session was crashing when local storage was cleared manually. Added a check to regenerate token if null.
-
-Closes #17
-```
-
-
-
-### 2.2. Commits inside a branch
-The individual commits inside a branch will automatically show up like this in the "squashed commit" (if not manually overwritten):
+The individual commits inside a branch will automatically show up like this in the "squashed commit":
 ```text
 <Pull Request Title>
 
@@ -82,10 +61,25 @@ The individual commits inside a branch will automatically show up like this in t
 - Add password hashing
 - Fix typo in auth middleware
 ```
-So, for commits _inside_ a branch, the only guideline is that we make sure they are clean and readable (also uses the imperative tense).
 
-### Example:
+<br>
 
-```text
-Add nordic languages in system menu
-```
+**Other notes**
+- Feature and fix branches **should be deleted** after merge.
+- If the text `Fixes #<issue-number>` is included in the PR description, then the associated issue will be auto-closed when the PR is closed.
+
+<br>
+
+## 3. Commits inside branches
+
+**Guidelines**
+- Are concise and readable.
+- Use the imperative tense (e.g., "add" not "added" or "adding").
+- Stay within 50 characters.
+
+<br>
+
+**Examples**
+- `Add login endpoint`
+- `Add password hashing`
+- `Fix typo in auth middleware`
