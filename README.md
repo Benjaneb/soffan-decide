@@ -1,29 +1,35 @@
 # soffan-decide
-Assignment 1
 
+### DD2480: Assignment 1
+This project implements the DECIDE() function as part of a hypothetical anti-ballistic missile defense system. The function evaluates radar tracking data to determine whether an interceptor launch should be authorized at the moment it is called. DECIDE() computes a set of Launch Interceptor Conditions (LICs), combines them using a Logical Connector Matrix and several intermediate vectors and matrices, and ultimately produces a launch-unlock decision. An interceptor is authorized to launch if and only if all required conditions specified by the final unlocking logic are satisfied.
 
-### Branch naming convention
+<br>
 
-Branch names must follow this structure:  
-**`<type>/decide-<issue-number>`**
+## Running and testing
+This project is set up with Gradle:
+- **Build**: `gradle build`
+- **Run**: `java -jar build/libs/decide-1.0-SNAPSHOT.jar`
+- **Test**: `gradle test`
 
-- **type**: one of `feat`, `fix`, `docs`, `refactor`, `test`
-- **issue-number**: the GitHub issue ID
+<br>
 
-Examples:
-- feat/decide-1
-- fix/decide-2
-- docs/decide-3
+## Contributing
 
+General contribution guidelines are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-### Commit message convention
+<br>
 
-Commit messages must follow this structure:  
-**`<type>: <short description>. #<issue-number>`**
+## Statement of Contributions
+This section describes the specific contributions made by each team member for this assignment.
 
-- **type**: one of `feat`, `fix`, `docs`, `refactor`, `test`
-- **issue-number**: the GitHub issue ID
+**Benjamin Widman, bwidman@kth.se**
+- ...
 
-Examples:
-- feat: initial Gradle setup. #1
-- fix: resolve login bug on mobile devices. #2
+**David Hübinette, davpers@kth.se**
+- ...
+
+**Daglas Aitsen, daglas@kth.se**
+- ...
+
+**Pierre Castañeda Segerström, pise@kth.se**
+- ...
