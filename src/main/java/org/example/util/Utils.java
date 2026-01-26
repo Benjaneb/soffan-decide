@@ -56,4 +56,14 @@ public final class Utils {
         double deltaY = p1.y() - p2.y();
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
+
+    /**
+     * Returns the area formed by three Point instances.
+     */
+    public static double triangleArea(Point p1, Point p2, Point p3) {
+        return Math.abs(
+            (p2.x() - p1.x()) * (p3.y() - p1.y())
+          - (p2.y() - p1.y()) * (p3.x() - p1.x())
+        ) / 2.0;
+    }
 }

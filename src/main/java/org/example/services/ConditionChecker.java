@@ -12,6 +12,7 @@ public class ConditionChecker {
         conditionsMet[0] = checkCondition0(points, params.LENGTH1);
         conditionsMet[1] = checkCondition1(points, params.RADIUS1);
         conditionsMet[2] = checkCondition2(points, params.EPSILON);
+        conditionsMet[3] = checkCondition3(points, params.AREA1);
         return conditionsMet;
     }
 
@@ -58,6 +59,26 @@ public class ConditionChecker {
             double angle = Utils.threePointAngle(points[i], points[i + 1], points[i + 2]);
             if (angle < Math.PI - epsilon || angle > Math.PI + epsilon)
                 return true;
+        }
+        return false;
+    }
+
+    /**
+     * There exists at least one set of three consecutive data points that are the vertices of a triangle with area greater than AREA1.
+    (0 ≤ AREA1)
+     */
+    public boolean checkCondition3(Point[] points, double area1) {
+        // Check input
+        if (area1 < 0) return false;
+
+        for (int i = 0; i < points.length - 2; i++) {
+            Point p1 = points[i];
+            Point p2 = points[i+1];
+            Point p3 = points[i+2];
+            double triangleArea = Utils.triangleArea(p1, p2, p3);
+            if (Utils.doubleCompare(triangleArea, area1) == Utils.CompType.GT) {
+                return true;
+            }       
         }
         return false;
     }
