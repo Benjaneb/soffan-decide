@@ -82,6 +82,35 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 3 for data which contains a triangle with sufficient area")
+    void testCondition3Succeeds() {
+        Point[] points = {
+            new Point(0, 1),
+            new Point(1, 1),
+            new Point(-1, -1),
+            new Point(0, 1.5)
+        };
+
+        // Test that a triplet's area is larger than 1 (largest one formed by the points is 1.5)
+        assertFalse(checker.checkCondition3(points, 2));
+        assertTrue(checker.checkCondition3(points, 1));
+    }
+
+    @Test
+    @DisplayName("Test condition 3 with invalid argument")
+    void testCondition3Fails() {
+        // Arbitrary data
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(0, 0)
+        };
+
+        // AREA1 ≥ 0
+        assertFalse(checker.checkCondition3(points, -0.01));
+    }
+
+    @Test
     @DisplayName("Test condition 5 succeeds when x decreases")
     void testCondition5Succeeds() {
         Point[] points = {
