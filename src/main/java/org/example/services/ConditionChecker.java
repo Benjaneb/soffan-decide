@@ -27,7 +27,7 @@ public class ConditionChecker {
         for(int i = 0; i<points.length-1; i++){
             Point p1 = points[i];
             Point p2 = points[i+1];
-            double dist = Utils.distanceOf(p1, p2);
+            double dist = Utils.distance(p1, p2);
             if (Utils.doubleCompare(dist, length1) == Utils.CompType.GT) {
                 return true;
             }            
@@ -40,9 +40,9 @@ public class ConditionChecker {
             double meanY = (points[i].y() + points[i + 1].y() + points[i + 2].y()) / 3;
             Point meanPoint = new Point(meanX, meanY);
 
-            boolean allWithinCircle = Point.distance(points[i], meanPoint) <= radius1
-                    && Point.distance(points[i + 1], meanPoint) <= radius1
-                    && Point.distance(points[i + 2], meanPoint) <= radius1;
+            boolean allWithinCircle = Utils.distance(points[i], meanPoint) <= radius1
+                    && Utils.distance(points[i + 1], meanPoint) <= radius1
+                    && Utils.distance(points[i + 2], meanPoint) <= radius1;
             if (!allWithinCircle)
                 return true;
         }
@@ -55,7 +55,7 @@ public class ConditionChecker {
             if (points[i].equals(points[i + 1]) || points[i + 2].equals(points[i + 1]))
                 continue;
 
-            double angle = Point.threePointAngle(points[i], points[i + 1], points[i + 2]);
+            double angle = Utils.threePointAngle(points[i], points[i + 1], points[i + 2]);
             if (angle < Math.PI - epsilon || angle > Math.PI + epsilon)
                 return true;
         }
