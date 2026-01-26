@@ -61,4 +61,16 @@ public class ConditionChecker {
         }
         return false;
     }
+
+    public boolean checkCondition5(Point[] points) {
+        for(int i = 0; i < points.length-1; i++){
+            Point p1 = points[i];
+            Point p2 = points[i+1];
+            double diff = p2.x() - p1.x();
+            if (Utils.doubleCompare(diff, 0) == Utils.CompType.LT) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

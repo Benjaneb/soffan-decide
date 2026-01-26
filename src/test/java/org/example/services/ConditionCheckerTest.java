@@ -80,4 +80,27 @@ class ConditionCheckerTest {
 
         assertFalse(checker.checkCondition2(points, 0.01));
     }
+
+    @Test
+    @DisplayName("Test condition 5 succeeds when x decreases")
+    void testCondition5Succeeds() {
+        Point[] points = {
+            new Point(1, 0),
+            new Point(0, 0),
+        };
+
+        assertTrue(checker.checkCondition5(points));
+    }
+
+    @Test
+    @DisplayName("Test condition 5 fails when x never decreases")
+    void testCondition5Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(1, 2),
+        };
+
+        assertFalse(checker.checkCondition5(points));
+    }
 }
