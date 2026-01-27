@@ -163,4 +163,21 @@ class ConditionCheckerTest {
 
         assertFalse(checker.checkCondition9(points, 0.01, 1, 1));
     }
+
+    @Test
+    @DisplayName("Test condition 9 rejects invalid input")
+    void testCondition9RejectsInvalidInput() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(2, 0),
+            new Point(1, 0), // A
+            new Point(2, 0),
+            new Point(0, 0), // B
+            new Point(2, 1),
+            new Point(-1, -1), // C
+        };
+
+        // CPTS should not be allowed to be <1, therefore set to 0
+        assertFalse(checker.checkCondition9(points, 0.01, 0, 1));
+    }
 }
