@@ -166,4 +166,20 @@ class ConditionCheckerTest {
 
         assertFalse(checker.checkCondition10(points, 1, 1, 3));
     }
+
+    @Test
+    @DisplayName("Test condition 10 rejects invalid input")
+    void testCondition10RejectInvalidInput() {
+        Point[] points = {
+            new Point(2, 0),
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(-1, 0),
+            new Point(2, 2),
+        };
+
+        // EPTS should not be allowed to be <1, therefore set to 0
+        assertFalse(checker.checkCondition10(points, 0, 1, 1));
+    }
 }
