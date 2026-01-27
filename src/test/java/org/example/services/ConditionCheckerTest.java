@@ -134,6 +134,53 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 9 succeeds with points at correct angle")
+    void testCondition9Succeeds() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(2, 0),
+            new Point(1, 0), // A
+            new Point(2, 0),
+            new Point(0, 0), // B
+            new Point(2, 1),
+            new Point(-1, -1), // C
+        };
+
+        // Test that last triplet is counted as forming an angle of PI +- 0.01
+        assertTrue(checker.checkCondition9(points, 0.01, 1, 1));
+    }
+
+    @Test
+    @DisplayName("Test condition 9 fails with no three points at correct angle")
+    void testCondition9Fails() {
+        Point[] points = {
+            new Point(2, 0),
+            new Point(1, 0),
+            new Point(0, 0),
+            new Point(-2, 0),
+            new Point(-3, 0),
+        };
+
+        assertFalse(checker.checkCondition9(points, 0.01, 1, 1));
+    }
+
+    @Test
+    @DisplayName("Test condition 9 rejects invalid input")
+    void testCondition9RejectsInvalidInput() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(2, 0),
+            new Point(1, 0), // A
+            new Point(2, 0),
+            new Point(0, 0), // B
+            new Point(2, 1),
+            new Point(-1, -1), // C
+        };
+
+        // CPTS should not be allowed to be <1, therefore set to 0
+        assertFalse(checker.checkCondition9(points, 0.01, 0, 1));
+    }
+
     @DisplayName("Test condition 10 succeeds")
     void testCondition10Succeeds() {
         // Points 1, 3 & 5 forms area 2 > 1

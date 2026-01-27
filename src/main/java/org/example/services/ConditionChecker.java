@@ -13,6 +13,7 @@ public class ConditionChecker {
         conditionsMet[1] = checkCondition1(points, params.RADIUS1);
         conditionsMet[2] = checkCondition2(points, params.EPSILON);
         conditionsMet[3] = checkCondition3(points, params.AREA1);
+        conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
         return conditionsMet;
     }
@@ -92,6 +93,27 @@ public class ConditionChecker {
             if (Utils.doubleCompare(diff, 0) == Utils.CompType.LT) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean checkCondition9(Point[] points, double epsilon, int cpts, int dpts) {
+        // Check valid input
+        if (cpts < 1 || dpts < 1 || cpts + dpts > points.length - 3)
+            return false;
+
+        for (int i = 0; i < points.length - (cpts + dpts + 2); i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + cpts + 1];
+            Point p3 = points[i + cpts + dpts + 2];
+
+            // Vertex should not coincide with either of the other two points
+            if (Utils.equals(p1, p2) || Utils.equals(p3, p2))
+                continue;
+
+            double angle = Utils.threePointAngle(p1, p2, p3);
+            if (angle < Math.PI - epsilon || angle > Math.PI + epsilon)
+                return true;
         }
         return false;
     }
