@@ -14,6 +14,7 @@ public class ConditionChecker {
         conditionsMet[2] = checkCondition2(points, params.EPSILON);
         conditionsMet[3] = checkCondition3(points, params.AREA1);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
+        conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
         return conditionsMet;
     }
 
@@ -112,6 +113,22 @@ public class ConditionChecker {
 
             double angle = Utils.threePointAngle(p1, p2, p3);
             if (angle < Math.PI - epsilon || angle > Math.PI + epsilon)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean checkCondition10(Point[] points, int epts, int fpts, double area1) {
+        // Check valid input
+        if (epts < 1 || fpts < 1 || epts + fpts > points.length - 3)
+            return false;
+
+        for (int i = 0; i < points.length - (epts + fpts + 2); i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + epts + 1];
+            Point p3 = points[i + epts + fpts + 2];
+
+            if (Utils.triangleArea(p1, p2, p3) > area1)
                 return true;
         }
         return false;
