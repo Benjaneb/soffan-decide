@@ -132,4 +132,54 @@ class ConditionCheckerTest {
 
         assertFalse(checker.checkCondition5(points));
     }
+
+    @Test
+    @DisplayName("Test condition 10 succeeds")
+    void testCondition10Succeeds() {
+        // Points 1, 3 & 5 forms area 2 > 1
+        // Other points just form a line (no area)
+        Point[] points = {
+            new Point(2, 0),
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(-1, 0),
+            new Point(2, 2),
+        };
+
+        assertTrue(checker.checkCondition10(points, 1, 1, 1));
+    }
+
+    @Test
+    @DisplayName("Test condition 10 fails")
+    void testCondition10Fails() {
+        // Points 1, 3 & 5 forms area 2 < 3
+        // Other points just form a line (no area)
+        Point[] points = {
+            new Point(2, 0),
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(-1, 0),
+            new Point(2, 2),
+        };
+
+        assertFalse(checker.checkCondition10(points, 1, 1, 3));
+    }
+
+    @Test
+    @DisplayName("Test condition 10 rejects invalid input")
+    void testCondition10RejectInvalidInput() {
+        Point[] points = {
+            new Point(2, 0),
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(-1, 0),
+            new Point(2, 2),
+        };
+
+        // EPTS should not be allowed to be <1, therefore set to 0
+        assertFalse(checker.checkCondition10(points, 0, 1, 1));
+    }
 }
