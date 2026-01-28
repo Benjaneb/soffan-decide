@@ -111,6 +111,47 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 4 finds consequtive points in sufficient amount of quadrants")
+    void testCondition4Succeeds() {
+        Point[] points = {
+            new Point( 1,  1),  // I
+            new Point(-1,  1),  // II
+            new Point(-1, -1),  // III
+            new Point( 1, -1)   // IV
+        };
+
+        // Any 3 consecutive points here span 3 quadrants
+        assertTrue(checker.checkCondition4(points, 3, 2));
+    }
+
+    @Test
+    @DisplayName("Test condition 4 when there aren't enough points to cover quadrants")
+    void testCondition4Fails() {
+        Point[] points = {
+            new Point(1, 1),    // I
+            new Point(2, 2),    // I
+            new Point(-1, 1),   // II
+            new Point(-2, 2)    // II
+        };
+
+        // Any 3 consecutive points only span quadrants I and II
+        assertFalse(checker.checkCondition4(points, 3, 2));
+    }
+
+    @Test
+    @DisplayName("Test condition 4 rejects invalid input")
+    void testCondition4RejectsInvalidInput() {
+        Point[] points = {
+            new Point(1, 1),
+            new Point(-1, 1),
+            new Point(-1, -1)
+        };
+
+        // QPTS > NUM_POINTS, QUADS > 3
+        assertFalse(checker.checkCondition4(points, 4, 4));
+    }
+
+    @Test
     @DisplayName("Test condition 5 succeeds when x decreases")
     void testCondition5Succeeds() {
         Point[] points = {
