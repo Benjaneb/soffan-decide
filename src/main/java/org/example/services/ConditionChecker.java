@@ -17,6 +17,7 @@ public class ConditionChecker {
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
         conditionsMet[12] = checkCondition12(points, params.KPTS, params.LENGTH1, params.LENGTH2);
+        conditionsMet[14] = checkCondition14(points, params.EPTS, params.FPTS, params.AREA1, params.AREA2);
         return conditionsMet;
     }
 
@@ -173,8 +174,8 @@ public class ConditionChecker {
         if (kpts < 1 || kpts > points.length - 2) return false;
         if (points.length < 3) return false;
 
-        boolean foundL1Pair = false;
-        boolean foundL2Pair = false;
+        boolean foundLength1Pair = false;
+        boolean foundLength2Pair = false;
 
         for (int i = 0; i < points.length - (kpts + 1); i++) {
             Point p1 = points[i];
@@ -189,5 +190,28 @@ public class ConditionChecker {
         }
 
         return false;
+    }
+  
+    public boolean checkCondition14(Point[] points, int epts, int fpts, double area1, double area2) {
+        // Check valid input
+        if (epts < 1 || fpts < 1 || epts + fpts > points.length - 3) return false;
+        if (area1 < 0 || area2 < 0) return false;
+        if (points.length < 5) return false;
+
+        boolean foundGreaterArea = false;
+        boolean foundSmallerArea = false;
+
+        for (int i = 0; i < points.length - (epts + fpts + 2); i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + epts + 1];
+            Point p3 = points[i + epts + fpts + 2];
+
+            double area = Utils.triangleArea(p1, p2, p3);
+
+            if (area > area1)   foundGreaterArea = true;
+            if (area < area2)   foundSmallerArea = true;
+
+            if (foundGreaterArea && foundSmallerArea) return true;
+        }
     }
 }
