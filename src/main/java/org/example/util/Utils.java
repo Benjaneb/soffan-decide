@@ -6,24 +6,13 @@ import java.lang.Math;
 public final class Utils {
     private Utils() {}
 
-    /*
-    * Enum for CompType
-    */
-    public enum CompType { LT, EQ, GT }
-
-    /*
-    * Compares doubles
-    */
-    public static CompType doubleCompare(double a, double b)
-    {
-        if (Math.abs(a-b) < 0.000001) return CompType.EQ ;
-        if (a<b) return CompType.LT;
-        return CompType.GT ;
+    public static boolean doubleEquals(double a, double b) {
+        return Math.abs(a - b) < 0.000001;
     }
 
     public static boolean equals(Point p1, Point p2) {
-        return Math.abs(p1.x() - p2.x()) < 0.000001
-            && Math.abs(p1.y() - p2.y()) < 0.000001;
+        return doubleEquals(p1.x(), p2.x())
+            && doubleEquals(p1.y(), p2.y());
     }
 
     public static double length(Point p) {
@@ -82,7 +71,6 @@ public final class Utils {
     * using formula R = abc/4*area, where a, b and c are side lengths
     */
     public static double circumcircleRadius(Point p1, Point p2, Point p3) {
-        
         // Calculating length of sides
         double a = distance(p1, p2);
         double b = distance(p2, p3);
@@ -93,7 +81,7 @@ public final class Utils {
         double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
 
         // Handle division by 0, an area of 0 means that the points are collinear and would create an infinitely large circle
-        if (doubleCompare(area, 0.0) == CompType.EQ) {
+        if (doubleEquals(area, 0.0)) {
             return 0;
         }
 
