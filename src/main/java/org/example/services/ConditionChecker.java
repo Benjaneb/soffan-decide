@@ -15,6 +15,7 @@ public class ConditionChecker {
         conditionsMet[3] = checkCondition3(points, params.AREA1);
         conditionsMet[4] = checkCondition4(points, params.QPTS, params.QUADS);
         conditionsMet[5] = checkCondition5(points);
+        conditionsMet[7] = checkCondition7(points, params.KPTS, params.LENGTH1);
         conditionsMet[8] = checkCondition8(points, params.APTS, params.BPTS, params.RADIUS1);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
@@ -130,6 +131,30 @@ public class ConditionChecker {
                 return true;
             }
         }
+        return false;
+    }
+
+    /*
+    * There exists at least one set of two data points separated by exactly K PTS consecutive intervening points
+    * that are a distance greater than the length, LENGTH1, apart. The condition is not met when NUMPOINTS < 3.
+    *
+    * 1 ≤ K PTS ≤ (NUMPOINTS − 2)
+    */
+    public boolean checkCondition7(Point[] points, int kpts, double length1) {
+        int numpoints = points.length;
+
+        if (numpoints < 3) return false;
+        if (kpts < 1 || kpts > numpoints - 2) return false;
+
+        for (int i = 0; i + kpts + 1 < numpoints; i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + kpts + 1];
+            double distance = Utils.distance(p1, p2);
+            if (Utils.doubleCompare(distance, length1) == Utils.CompType.GT) {
+                return true;
+            }
+        }
+
         return false;
     }
 

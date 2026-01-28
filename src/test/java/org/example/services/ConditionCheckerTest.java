@@ -175,6 +175,28 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 7 succeeds with distance greater than length1")
+    void testCondition7Succeeds() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(3, 0)
+        };
+        assertTrue(checker.checkCondition7(points, 1, 2.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 7 fails when distance is not greater than length1")
+    void testCondition7Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(1, 0)
+        };
+        assertFalse(checker.checkCondition7(points, 1, 2.0));
+    }
+
+    @Test
     @DisplayName("Test condition 8 succeeds with radius larger than radius1")
     void testCondition8Succeeds() {
         // A, B & C form the correct angle
