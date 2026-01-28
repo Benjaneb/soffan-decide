@@ -270,4 +270,46 @@ class ConditionCheckerTest {
         // EPTS should not be allowed to be <1, therefore set to 0
         assertFalse(checker.checkCondition10(points, 0, 1, 1));
     }
+
+    @Test
+    @DisplayName("Test condition 12 succeeds")
+    void testCondition12Succeeds() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 1),
+            new Point(0, 2),
+            new Point(0, 0),
+            new Point(0, 3)
+        };
+
+        // Pair (0,0) → (0,2): distance = 2 > length1
+        // Pair (0,1) → (0,0): distance = 1 < length2
+        assertTrue(checker.checkCondition12(points, 2, 1.5, 1.2));
+    }
+
+    @Test
+    @DisplayName("Test condition 12 fails")
+    void testCondition12Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(2, 0),
+            new Point(0, 2),
+            new Point(2, 2)
+        };
+
+        // All distances are ≥ 2
+        assertFalse(checker.checkCondition12(points, 1, 1.0, 1.5));
+    }
+
+    @Test
+    @DisplayName("Test condition 12 rejects invalid input")
+    void testCondition12RejectInvalidInput() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(1, 1)
+        };
+
+        // All arguments are invalid
+        assertFalse(checker.checkCondition12(points, 0, -1, -1));
+    }
 }

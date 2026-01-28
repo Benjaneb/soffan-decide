@@ -16,6 +16,7 @@ public class ConditionChecker {
         conditionsMet[4] = checkCondition4(points, params.QPTS, params.QUADS);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
+        conditionsMet[12] = checkCondition12(points, params.KPTS, params.LENGTH1, params.LENGTH2);
         return conditionsMet;
     }
 
@@ -163,6 +164,30 @@ public class ConditionChecker {
             if (Utils.triangleArea(p1, p2, p3) > area1)
                 return true;
         }
+        return false;
+    }
+    
+    public boolean checkCondition12(Point[] points, int kpts, double length1, double length2) {
+        // Check valid input
+        if (length1 < 0 || length2 < 0) return false;
+        if (kpts < 1 || kpts > points.length - 2) return false;
+        if (points.length < 3) return false;
+
+        boolean foundL1Pair = false;
+        boolean foundL2Pair = false;
+
+        for (int i = 0; i < points.length - (kpts + 1); i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + kpts + 1];
+
+            double distance = Utils.distance(p1, p2);
+
+            if (distance > length1) foundL1Pair = true;
+            if (distance < length2) foundL2Pair = true;
+
+            if (foundL1Pair && foundL2Pair) return true;
+        }
+
         return false;
     }
 }
