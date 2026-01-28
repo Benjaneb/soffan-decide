@@ -14,9 +14,13 @@ public class ConditionChecker {
         conditionsMet[2] = checkCondition2(points, params.EPSILON);
         conditionsMet[3] = checkCondition3(points, params.AREA1);
         conditionsMet[4] = checkCondition4(points, params.QPTS, params.QUADS);
+        conditionsMet[5] = checkCondition5(points);
+        conditionsMet[7] = checkCondition7(points, params.KPTS, params.LENGTH1);
+        conditionsMet[8] = checkCondition8(points, params.APTS, params.BPTS, params.RADIUS1);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
         conditionsMet[12] = checkCondition12(points, params.KPTS, params.LENGTH1, params.LENGTH2);
+        conditionsMet[14] = checkCondition14(points, params.EPTS, params.FPTS, params.AREA1, params.AREA2);
         return conditionsMet;
     }
 
@@ -147,6 +151,68 @@ public class ConditionChecker {
         }
         return false;
     }
+    /*
+    * There exists at least one set of two data points separated by exactly K PTS consecutive intervening points
+    * that are a distance greater than the length, LENGTH1, apart. The condition is not met when NUMPOINTS < 3.
+    *
+    * 1 ≤ K PTS ≤ (NUMPOINTS − 2)
+    */
+    public boolean checkCondition7(Point[] points, int kpts, double length1) {
+        int numpoints = points.length;
+
+        if (numpoints < 3) return false;
+        if (kpts < 1 || kpts > numpoints - 2) return false;
+
+        for (int i = 0; i + kpts + 1 < numpoints; i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + kpts + 1];
+            double distance = Utils.distance(p1, p2);
+            if (Utils.doubleCompare(distance, length1) == Utils.CompType.GT) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /*
+    * There exists at least one set of three data points separated by exactly A PTS and B PTS
+    * consecutive intervening points, respectively, that cannot be contained within or on a circle of
+    * radius RADIUS1. The condition is not met when NUMPOINTS < 5.
+    * 
+    * 1 ≤ A PTS, 1 ≤ B PTS
+    * A PTS + B PTS ≤ (NUMPOINTS − 3)
+    */
+    public boolean checkCondition8(Point[] points, int apts, int bpts, double radius1) {
+        int numpoints = points.length;
+
+        if (numpoints < 5 || apts < 1 || bpts < 1 || apts + bpts > (numpoints -3)){
+            return false;
+        }
+
+        for (int i = 0; i + apts + bpts + 2 < numpoints; i++){
+            Point p1 = points[i];
+            // "separated by" meaning that the point is apts + 1 away
+            Point p2 = points[i + apts + 1];
+            Point p3 = points[i + apts + bpts + 2];
+
+            double radius = Utils.circumcircleRadius(p1, p2, p3);
+            
+            // If radius of circumcircle is greater than the maximum distance between two points, the triangle can be contained in a circle with the longest distance as it's diameter
+            double maxDistance = Math.max(Math.max(Utils.distance(p1, p2), Utils.distance(p2, p3)), Utils.distance(p1, p3)); 
+            if (Utils.doubleCompare(maxDistance, radius) == Utils.CompType.LT){
+                radius = maxDistance/2;
+            }
+
+            if (Utils.doubleCompare(radius, radius1) == Utils.CompType.GT) {
+                return true; // found a set of three points that cannot fit inside circle
+            } 
+        }
+
+        return false;
+    }
+        
+        
 
     public boolean checkCondition9(Point[] points, double epsilon, int cpts, int dpts) {
         // Check valid input
@@ -191,8 +257,8 @@ public class ConditionChecker {
         if (kpts < 1 || kpts > points.length - 2) return false;
         if (points.length < 3) return false;
 
-        boolean foundL1Pair = false;
-        boolean foundL2Pair = false;
+        boolean foundLength1Pair = false;
+        boolean foundLength2Pair = false;
 
         for (int i = 0; i < points.length - (kpts + 1); i++) {
             Point p1 = points[i];
@@ -200,10 +266,35 @@ public class ConditionChecker {
 
             double distance = Utils.distance(p1, p2);
 
-            if (distance > length1) foundL1Pair = true;
-            if (distance < length2) foundL2Pair = true;
+            if (distance > length1) foundLength1Pair = true;
+            if (distance < length2) foundLength2Pair = true;
 
-            if (foundL1Pair && foundL2Pair) return true;
+            if (foundLength1Pair && foundLength2Pair) return true;
+        }
+
+        return false;
+    }
+  
+    public boolean checkCondition14(Point[] points, int epts, int fpts, double area1, double area2) {
+        // Check valid input
+        if (epts < 1 || fpts < 1 || epts + fpts > points.length - 3) return false;
+        if (area1 < 0 || area2 < 0) return false;
+        if (points.length < 5) return false;
+
+        boolean foundGreaterArea = false;
+        boolean foundSmallerArea = false;
+
+        for (int i = 0; i < points.length - (epts + fpts + 2); i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + epts + 1];
+            Point p3 = points[i + epts + fpts + 2];
+
+            double area = Utils.triangleArea(p1, p2, p3);
+
+            if (area > area1)   foundGreaterArea = true;
+            if (area < area2)   foundSmallerArea = true;
+
+            if (foundGreaterArea && foundSmallerArea) return true;
         }
 
         return false;

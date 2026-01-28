@@ -196,6 +196,73 @@ class ConditionCheckerTest {
         };
 
         assertFalse(checker.checkCondition6(points, 3, 0.1));
+    @DisplayName("Test condition 7 succeeds with distance greater than length1")
+    void testCondition7Succeeds() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(3, 0)
+        };
+        assertTrue(checker.checkCondition7(points, 1, 2.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 7 fails when distance is not greater than length1")
+    void testCondition7Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(1, 0)
+        };
+        assertFalse(checker.checkCondition7(points, 1, 2.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 8 succeeds with radius larger than radius1")
+    void testCondition8Succeeds() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(-4, 0), //p1
+            new Point(1, 0),
+            new Point(4, 0), //p2
+            new Point(1, 1),
+            new Point(0, 1) //p3
+        };
+
+        // Test that radius larger than radius1 returns true
+        assertTrue(checker.checkCondition8(points, 1, 1, 3.999));
+    }
+    
+    @Test
+    @DisplayName("Test condition 8 fails with radius smaller than radius1")
+    void testCondition8fails() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(-4, 0), //p1
+            new Point(1, 0),
+            new Point(4, 0), //p2
+            new Point(1, 1),
+            new Point(0, 1) //p3
+        };
+
+        // Test that radius smaller than radius1 returns false
+        assertFalse(checker.checkCondition8(points, 1, 1, 4.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 8 fails with radius smaller than radius1")
+    void testCondition8RejectsInvalidInput() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(0, 0), //p1
+            new Point(1, 0),
+            new Point(2, 2), //p2
+            new Point(1, 1),
+            new Point(-1, -1) //p3
+        };
+
+        // Test that invalid input where aPts + bPts > (numpoints -3) returns false
+        assertFalse(checker.checkCondition8(points, 2, 2, 1));
     }
 
     @Test
@@ -294,7 +361,7 @@ class ConditionCheckerTest {
         // EPTS should not be allowed to be <1, therefore set to 0
         assertFalse(checker.checkCondition10(points, 0, 1, 1));
     }
-
+    
     @Test
     @DisplayName("Test condition 12 succeeds")
     void testCondition12Succeeds() {
@@ -335,5 +402,53 @@ class ConditionCheckerTest {
 
         // All arguments are invalid
         assertFalse(checker.checkCondition12(points, 0, -1, -1));
+    }
+  
+    @Test
+    @DisplayName("Test condition 14 succeeds")
+    void testCondition14Succeeds() {
+        Point[] points = {
+            new Point(0,0), // Vertex A1
+            new Point(0,0),
+            new Point(4,0), // Vertex A2, B1
+            new Point(0,0),
+            new Point(4,1), // Vertex B2
+            new Point(0,4), // Vertex A3
+            new Point(0,0),
+            new Point(5,0)  // Vertex B3
+        };
+
+        // Area Triangle A: 8
+        // Area Triangle B: 0.5
+        assertTrue(checker.checkCondition14(points, 1, 2, 6.0, 1.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 14 fails")
+    void testCondition14Fails() {
+        Point[] points = {
+            new Point(0,0), // Vertex A1
+            new Point(0,1),
+            new Point(1,0), // Vertex A2
+            new Point(1,1),
+            new Point(0,1) // Vertex A3
+        };
+
+        // Area Triangle A: 0.5
+        assertFalse(checker.checkCondition14(points, 1, 1, 2.0, 0.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 14 rejects invalid input")
+    void testCondition14RejectInvalidInput() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(0, 0),
+        };
+      
+        // All arguments are invalid
+        assertFalse(checker.checkCondition14(points, 0, 0, -1.0, -1.0));
     }
 }

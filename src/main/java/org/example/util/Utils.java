@@ -57,6 +57,7 @@ public final class Utils {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
+
     /**
      * Returns the area formed by three Point instances.
      */
@@ -76,6 +77,30 @@ public final class Utils {
         return numerator / denominator;
     }
 
+    /*
+    * Caluculate radius of a circle intersecting all the points in a triangle
+    * using formula R = abc/4*area, where a, b and c are side lengths
+    */
+    public static double circumcircleRadius(Point p1, Point p2, Point p3) {
+        
+        // Calculating length of sides
+        double a = distance(p1, p2);
+        double b = distance(p2, p3);
+        double c = distance(p1, p3);
+
+        // Using herons formula for the area of triangle
+        double s = (a + b + c) / 2.0;
+        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+
+        // Handle division by 0, an area of 0 means that the points are collinear and would create an infinitely large circle
+        if (doubleCompare(area, 0.0) == CompType.EQ) {
+            return 0;
+        }
+
+        // Using the formula R = abc/4*area
+        return (a * b * c) / (4.0 * area);
+    }
+    
     /**
      * Helper for LIC4. Returns which quadrant a Point belongs to, according to custom prioritization from specification.
      */

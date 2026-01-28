@@ -1,8 +1,5 @@
 package org.example;
 
-import org.example.model.*;
-import org.example.services.*;
-
 public class Main {
     public static void main(String[] args) {
         // TODO: Initialize all "global variables" and pass to LaunchDecider
