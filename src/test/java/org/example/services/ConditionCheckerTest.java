@@ -111,6 +111,47 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 4 finds consequtive points in sufficient amount of quadrants")
+    void testCondition4Succeeds() {
+        Point[] points = {
+            new Point( 1,  1),  // I
+            new Point(-1,  1),  // II
+            new Point(-1, -1),  // III
+            new Point( 1, -1)   // IV
+        };
+
+        // Any 3 consecutive points here span 3 quadrants
+        assertTrue(checker.checkCondition4(points, 3, 2));
+    }
+
+    @Test
+    @DisplayName("Test condition 4 when there aren't enough points to cover quadrants")
+    void testCondition4Fails() {
+        Point[] points = {
+            new Point(1, 1),    // I
+            new Point(2, 2),    // I
+            new Point(-1, 1),   // II
+            new Point(-2, 2)    // II
+        };
+
+        // Any 3 consecutive points only span quadrants I and II
+        assertFalse(checker.checkCondition4(points, 3, 2));
+    }
+
+    @Test
+    @DisplayName("Test condition 4 rejects invalid input")
+    void testCondition4RejectsInvalidInput() {
+        Point[] points = {
+            new Point(1, 1),
+            new Point(-1, 1),
+            new Point(-1, -1)
+        };
+
+        // QPTS > NUM_POINTS, QUADS > 3
+        assertFalse(checker.checkCondition4(points, 4, 4));
+    }
+
+    @Test
     @DisplayName("Test condition 5 succeeds when x decreases")
     void testCondition5Succeeds() {
         Point[] points = {
@@ -229,7 +270,49 @@ class ConditionCheckerTest {
         // EPTS should not be allowed to be <1, therefore set to 0
         assertFalse(checker.checkCondition10(points, 0, 1, 1));
     }
+    
+    @Test
+    @DisplayName("Test condition 12 succeeds")
+    void testCondition12Succeeds() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 1),
+            new Point(0, 2),
+            new Point(0, 0),
+            new Point(0, 3)
+        };
 
+        // Pair (0,0) → (0,2): distance = 2 > length1
+        // Pair (0,1) → (0,0): distance = 1 < length2
+        assertTrue(checker.checkCondition12(points, 2, 1.5, 1.2));
+    }
+
+    @Test
+    @DisplayName("Test condition 12 fails")
+    void testCondition12Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(2, 0),
+            new Point(0, 2),
+            new Point(2, 2)
+        };
+
+        // All distances are ≥ 2
+        assertFalse(checker.checkCondition12(points, 1, 1.0, 1.5));
+    }
+
+    @Test
+    @DisplayName("Test condition 12 rejects invalid input")
+    void testCondition12RejectInvalidInput() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(1, 1)
+        };
+
+        // All arguments are invalid
+        assertFalse(checker.checkCondition12(points, 0, -1, -1));
+    }
+  
     @Test
     @DisplayName("Test condition 14 succeeds")
     void testCondition14Succeeds() {
@@ -273,7 +356,7 @@ class ConditionCheckerTest {
             new Point(0, 0),
             new Point(0, 0),
         };
-
+      
         // All arguments are invalid
         assertFalse(checker.checkCondition14(points, 0, 0, -1.0, -1.0));
     }

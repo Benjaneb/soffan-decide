@@ -66,4 +66,14 @@ public final class Utils {
           - (p2.y() - p1.y()) * (p3.x() - p1.x())
         ) / 2.0;
     }
+
+    /**
+     * Helper for LIC4. Returns which quadrant a Point belongs to, according to custom prioritization from specification.
+     */
+    public static int quadrant(Point p) {
+        if (p.x() >= 0 && p.y() >= 0) return 1; // Quadrant I
+        if (p.x() <  0 && p.y() >= 0) return 2; // Quadrant II
+        if (p.x() <  0 && p.y() <  0) return 3; // Quadrant III
+        return 4;                               // Quadrant IV
+    }
 }
