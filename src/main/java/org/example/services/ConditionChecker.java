@@ -19,6 +19,7 @@ public class ConditionChecker {
         conditionsMet[8] = checkCondition8(points, params.APTS, params.BPTS, params.RADIUS1);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
+        conditionsMet[11] = checkCondition11(points, params.GPTS);
         conditionsMet[12] = checkCondition12(points, params.KPTS, params.LENGTH1, params.LENGTH2);
         conditionsMet[14] = checkCondition14(points, params.EPTS, params.FPTS, params.AREA1, params.AREA2);
         return conditionsMet;
@@ -230,6 +231,22 @@ public class ConditionChecker {
 
             if (Utils.triangleArea(p1, p2, p3) > area1)
                 return true;
+        }
+        return false;
+    }
+
+    public boolean checkCondition11(Point[] points, int gpts) {
+        int numpoints = points.length;
+        if (numpoints < 3) return false;
+        if (gpts < 1 || gpts > numpoints - 2) return false;
+
+        for (int i = 0; i + gpts + 1 < numpoints; i++) {
+            Point p1 = points[i];
+            Point p2 = points[i + gpts + 1];
+            double diff = p2.x() - p1.x();
+            if (Utils.doubleCompare(diff, 0) == Utils.CompType.LT) {
+                return true;
+            }
         }
         return false;
     }
