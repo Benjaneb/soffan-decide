@@ -14,6 +14,8 @@ public class ConditionChecker {
         conditionsMet[2] = checkCondition2(points, params.EPSILON);
         conditionsMet[3] = checkCondition3(points, params.AREA1);
         conditionsMet[4] = checkCondition4(points, params.QPTS, params.QUADS);
+        conditionsMet[5] = checkCondition5(points);
+        conditionsMet[8] = checkCondition8(points, params.APTS, params.BPTS, params.RADIUS1);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
         conditionsMet[12] = checkCondition12(points, params.KPTS, params.LENGTH1, params.LENGTH2);
@@ -130,6 +132,45 @@ public class ConditionChecker {
         }
         return false;
     }
+
+    /*
+    * There exists at least one set of three data points separated by exactly A PTS and B PTS
+    * consecutive intervening points, respectively, that cannot be contained within or on a circle of
+    * radius RADIUS1. The condition is not met when NUMPOINTS < 5.
+    * 
+    * 1 ≤ A PTS, 1 ≤ B PTS
+    * A PTS + B PTS ≤ (NUMPOINTS − 3)
+    */
+    public boolean checkCondition8(Point[] points, int apts, int bpts, double radius1) {
+        int numpoints = points.length;
+
+        if (numpoints < 5 || apts < 1 || bpts < 1 || apts + bpts > (numpoints -3)){
+            return false;
+        }
+
+        for (int i = 0; i + apts + bpts + 2 < numpoints; i++){
+            Point p1 = points[i];
+            // "separated by" meaning that the point is apts + 1 away
+            Point p2 = points[i + apts + 1];
+            Point p3 = points[i + apts + bpts + 2];
+
+            double radius = Utils.circumcircleRadius(p1, p2, p3);
+            
+            // If radius of circumcircle is greater than the maximum distance between two points, the triangle can be contained in a circle with the longest distance as it's diameter
+            double maxDistance = Math.max(Math.max(Utils.distance(p1, p2), Utils.distance(p2, p3)), Utils.distance(p1, p3)); 
+            if (Utils.doubleCompare(maxDistance, radius) == Utils.CompType.LT){
+                radius = maxDistance/2;
+            }
+
+            if (Utils.doubleCompare(radius, radius1) == Utils.CompType.GT) {
+                return true; // found a set of three points that cannot fit inside circle
+            } 
+        }
+
+        return false;
+    }
+        
+        
 
     public boolean checkCondition9(Point[] points, double epsilon, int cpts, int dpts) {
         // Check valid input
