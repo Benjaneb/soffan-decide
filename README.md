@@ -1,12 +1,26 @@
 # soffan-decide
 
-### DD2480: Assignment 1
-This project implements the DECIDE() function as part of a hypothetical anti-ballistic missile defense system. The function evaluates radar tracking data to determine whether an interceptor launch should be authorized at the moment it is called. DECIDE() computes a set of Launch Interceptor Conditions (LICs), combines them using a Logical Connector Matrix and several intermediate vectors and matrices, and ultimately produces a launch-unlock decision. An interceptor is authorized to launch if and only if all required conditions specified by the final unlocking logic are satisfied.
+**A reference implementation of the DECIDE launch decision function for a hypothetical missile defense system.**
 
 <br>
 
-## Running and testing
-This project is set up with Gradle:
+## What this project does
+
+This project implements the DECIDE() decision function. Given a snapshot of radar tracking data and configuration parameters, the program produces a deterministic launch ("YES") or no-launch ("NO") decision at the moment it is called. The decision is deterministic and based solely on the provided input data and parameters.
+
+The main purpose of the project is exercising best practices in adopting version control in a larger team setting. The goal is therefore clarity and traceability throughout collaboration rather than real-world deployment.
+
+<br>
+
+## How to use it
+
+**Requirements**
+- **Java 17** or later
+- **Gradle 7** or later
+
+<br>
+
+**Running and testing**
 - **Build**: `gradle build`
 - **Run**: `java -jar build/libs/decide-1.0-SNAPSHOT.jar`
 - **Test**: `gradle test`
@@ -16,6 +30,12 @@ This project is set up with Gradle:
 ## Contributing
 
 General contribution guidelines are described in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+<br>
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for full license text.
 
 <br>
 
