@@ -138,6 +138,23 @@ public class ConditionChecker {
         return false;
     }
 
+    public boolean checkCondition6(Point[] points, int npts, double dist) {
+        if (points.length < 3 || npts < 3 || npts > points.length || dist < 0) return false;
+
+        for (int i = 0; i <= points.length - npts; i++) {
+            Point first = points[i];
+            Point last = points[i + npts - 1];
+            boolean samePoints = Utils.equals(first, last);
+
+            for (int j = i + 1; j < i + npts - 1; j++) {
+                double distance = samePoints
+                    ? Utils.distance(first, points[j])
+                    : Utils.distanceFromLine(first, last, points[j]);
+                if (Utils.doubleCompare(distance, dist) == Utils.CompType.GT) return true;
+            }
+        }
+        return false;
+    }
     /*
     * There exists at least one set of two data points separated by exactly K PTS consecutive intervening points
     * that are a distance greater than the length, LENGTH1, apart. The condition is not met when NUMPOINTS < 3.

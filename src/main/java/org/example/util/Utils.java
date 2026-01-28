@@ -68,6 +68,15 @@ public final class Utils {
         ) / 2.0;
     }
 
+    public static double distanceFromLine(Point lineStart, Point lineEnd, Point point) {
+        if (equals(lineStart, lineEnd)) return distance(lineStart, point);
+        double dx = lineEnd.x() - lineStart.x();
+        double dy = lineEnd.y() - lineStart.y();
+        double numerator = Math.abs(dy * (point.x() - lineStart.x()) - dx * (point.y() - lineStart.y()));
+        double denominator = Math.sqrt(dx * dx + dy * dy);
+        return numerator / denominator;
+    }
+
     /*
     * Caluculate radius of a circle intersecting all the points in a triangle
     * using formula R = abc/4*area, where a, b and c are side lengths
