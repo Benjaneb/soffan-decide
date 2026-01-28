@@ -175,6 +175,54 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 8 succeeds with radius larger than radius1")
+    void testCondition8Succeeds() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(-4, 0), //p1
+            new Point(1, 0),
+            new Point(4, 0), //p2
+            new Point(1, 1),
+            new Point(0, 1) //p3
+        };
+
+        // Test that radius larger than radius1 returns true
+        assertTrue(checker.checkCondition8(points, 1, 1, 3.999));
+    }
+    
+    @Test
+    @DisplayName("Test condition 8 fails with radius smaller than radius1")
+    void testCondition8fails() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(-4, 0), //p1
+            new Point(1, 0),
+            new Point(4, 0), //p2
+            new Point(1, 1),
+            new Point(0, 1) //p3
+        };
+
+        // Test that radius smaller than radius1 returns false
+        assertFalse(checker.checkCondition8(points, 1, 1, 4.0));
+    }
+
+    @Test
+    @DisplayName("Test condition 8 fails with radius smaller than radius1")
+    void testCondition8RejectsInvalidInput() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(0, 0), //p1
+            new Point(1, 0),
+            new Point(2, 2), //p2
+            new Point(1, 1),
+            new Point(-1, -1) //p3
+        };
+
+        // Test that invalid input where aPts + bPts > (numpoints -3) returns false
+        assertFalse(checker.checkCondition8(points, 2, 2, 1));
+    }
+
+    @Test
     @DisplayName("Test condition 9 succeeds with points at correct angle")
     void testCondition9Succeeds() {
         // A, B & C form the correct angle

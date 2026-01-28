@@ -1,7 +1,5 @@
 package org.example.model;
 
-import java.lang.Math;
-
 /**
  * Represents a geographical coordinate
  */
