@@ -183,10 +183,10 @@ public class ConditionChecker {
 
             double distance = Utils.distance(p1, p2);
 
-            if (distance > length1) foundL1Pair = true;
-            if (distance < length2) foundL2Pair = true;
+            if (distance > length1) foundLength1Pair = true;
+            if (distance < length2) foundLength2Pair = true;
 
-            if (foundL1Pair && foundL2Pair) return true;
+            if (foundLength1Pair && foundLength2Pair) return true;
         }
 
         return false;
@@ -213,5 +213,7 @@ public class ConditionChecker {
 
             if (foundGreaterArea && foundSmallerArea) return true;
         }
+
+        return false;
     }
 }
