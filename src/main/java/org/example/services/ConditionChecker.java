@@ -61,11 +61,14 @@ public class ConditionChecker {
 
     public boolean checkCondition2(Point[] points, double epsilon) {
         for (int i = 0; i < points.length - 2; i++) {
+            Point p1 = points[i];
+            Point p2 = points[i+1];
+            Point p3 = points[i+2];
             // Vertex should not coincide with either of the other two points
-            if (points[i].equals(points[i + 1]) || points[i + 2].equals(points[i + 1]))
+            if (Utils.equals(p1, p2) || Utils.equals(p3, p2))
                 continue;
 
-            double angle = Utils.threePointAngle(points[i], points[i + 1], points[i + 2]);
+            double angle = Utils.threePointAngle(p1, p2, p3);
             if (angle < Math.PI - epsilon || angle > Math.PI + epsilon)
                 return true;
         }
