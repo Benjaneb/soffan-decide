@@ -175,6 +175,30 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 6 succeeds with a point far from the line")
+    void testCondition6Succeeds() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 1),
+            new Point(1, 0),
+        };
+
+        assertTrue(checker.checkCondition6(points, 3, 0.5));
+    }
+
+    @Test
+    @DisplayName("Test condition 6 fails when all points are close to the line")
+    void testCondition6Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0.5, 0),
+            new Point(1, 0),
+        };
+
+        assertFalse(checker.checkCondition6(points, 3, 0.1));
+    }
+
+    @Test
     @DisplayName("Test condition 9 succeeds with points at correct angle")
     void testCondition9Succeeds() {
         // A, B & C form the correct angle

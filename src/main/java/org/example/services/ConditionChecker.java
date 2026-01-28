@@ -130,6 +130,24 @@ public class ConditionChecker {
         return false;
     }
 
+    public boolean checkCondition6(Point[] points, int npts, double dist) {
+        if (points.length < 3 || npts < 3 || npts > points.length || dist < 0) return false;
+
+        for (int i = 0; i <= points.length - npts; i++) {
+            Point first = points[i];
+            Point last = points[i + npts - 1];
+            boolean samePoints = Utils.equals(first, last);
+
+            for (int j = i + 1; j < i + npts - 1; j++) {
+                double distance = samePoints
+                    ? Utils.distance(first, points[j])
+                    : Utils.distanceFromLine(first, last, points[j]);
+                if (Utils.doubleCompare(distance, dist) == Utils.CompType.GT) return true;
+            }
+        }
+        return false;
+    }
+
     public boolean checkCondition9(Point[] points, double epsilon, int cpts, int dpts) {
         // Check valid input
         if (cpts < 1 || dpts < 1 || cpts + dpts > points.length - 3)

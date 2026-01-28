@@ -67,6 +67,15 @@ public final class Utils {
         ) / 2.0;
     }
 
+    public static double distanceFromLine(Point lineStart, Point lineEnd, Point point) {
+        if (equals(lineStart, lineEnd)) return distance(lineStart, point);
+        double dx = lineEnd.x() - lineStart.x();
+        double dy = lineEnd.y() - lineStart.y();
+        double numerator = Math.abs(dy * (point.x() - lineStart.x()) - dx * (point.y() - lineStart.y()));
+        double denominator = Math.sqrt(dx * dx + dy * dy);
+        return numerator / denominator;
+    }
+
     /**
      * Helper for LIC4. Returns which quadrant a Point belongs to, according to custom prioritization from specification.
      */
