@@ -34,6 +34,9 @@ public class ConditionChecker {
     (0 ≤ LENGTH1) 
     */
     public boolean checkCondition0(Point[] points, double length1) {
+        if (Utils.doubleCompare(length1, 0.0) == Utils.CompType.LT){
+            return false;
+        }
         for(int i = 0; i<points.length-1; i++){
             Point p1 = points[i];
             Point p2 = points[i+1];
