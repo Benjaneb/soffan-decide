@@ -13,6 +13,7 @@ public class ConditionChecker {
         conditionsMet[1] = checkCondition1(points, params.RADIUS1);
         conditionsMet[2] = checkCondition2(points, params.EPSILON);
         conditionsMet[3] = checkCondition3(points, params.AREA1);
+        conditionsMet[4] = checkCondition4(points, params.QPTS, params.QUADS);
         conditionsMet[9] = checkCondition9(points, params.EPSILON, params.CPTS, params.DPTS);
         conditionsMet[10] = checkCondition10(points, params.EPTS, params.FPTS, params.AREA1);
         return conditionsMet;
@@ -81,6 +82,37 @@ public class ConditionChecker {
             if (Utils.doubleCompare(triangleArea, area1) == Utils.CompType.GT) {
                 return true;
             }       
+        }
+        return false;
+    }
+
+    /**
+     * There exists at least one set of QPTS consecutive data points that lie in more than QUADS
+     * quadrants. Where there is ambiguity as to which quadrant contains a given point, priority
+     * of decision will be by quadrant number, i.e., I, II, III, IV. For example, the data point (0,0)
+     * is in quadrant I, the point (-l,0) is in quadrant II, the point (0,-l) is in quadrant III, the point
+     * (0,1) is in quadrant I and the point (1,0) is in quadrant I.
+     * – (2 ≤ QPTS ≤ NUMPOINTS)
+     * - (1 ≤ QUADS ≤ 3)
+     */
+    public boolean checkCondition4(Point[] points, int qpts, int quads) {
+        // Check input
+        if (qpts < 2 || qpts > points.length || quads < 1 || quads > 3)
+            return false;
+
+        for (int i = 0; i < points.length - qpts + 1; i++) {
+            boolean[] seen = new boolean[4]; // which quadrants I-IV we've observed
+            int count = 0;
+
+            // Iterating qpts Points, starting from i
+            for (int j = 0; j < qpts; j++) {
+                int q = Utils.quadrant(points[i + j]);
+                if (!seen[q - 1]) {
+                    seen[q - 1] = true;
+                    count++;
+                }
+            }
+            if (count > quads) return true;
         }
         return false;
     }
