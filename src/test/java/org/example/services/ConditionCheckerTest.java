@@ -340,6 +340,28 @@ class ConditionCheckerTest {
         // EPTS should not be allowed to be <1, therefore set to 0
         assertFalse(checker.checkCondition10(points, 0, 1, 1));
     }
+
+    @Test
+    @DisplayName("Test condition 11 succeeds when x decreases across GPTS-separated points")
+    void testCondition11Succeeds() {
+        Point[] points = {
+            new Point(1, 0),
+            new Point(0, 0),
+            new Point(0, 0),
+        };
+        assertTrue(checker.checkCondition11(points, 1));
+    }
+
+    @Test
+    @DisplayName("Test condition 11 fails when x never decreases across GPTS-separated points")
+    void testCondition11Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(1, 0),
+        };
+        assertFalse(checker.checkCondition11(points, 1));
+    }
     
     @Test
     @DisplayName("Test condition 12 succeeds")
