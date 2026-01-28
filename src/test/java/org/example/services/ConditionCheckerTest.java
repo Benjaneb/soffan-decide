@@ -196,6 +196,8 @@ class ConditionCheckerTest {
         };
 
         assertFalse(checker.checkCondition6(points, 3, 0.1));
+    }
+        
     @DisplayName("Test condition 7 succeeds with distance greater than length1")
     void testCondition7Succeeds() {
         Point[] points = {
