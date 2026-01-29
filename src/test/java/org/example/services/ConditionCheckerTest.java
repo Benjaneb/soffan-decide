@@ -63,9 +63,10 @@ class ConditionCheckerTest {
         assertFalse(checker.checkCondition0(points, -1));
     }
     
+
     @Test
-    @DisplayName("Test condition 1")
-    void testCondition1() {
+    @DisplayName("Test condition 1 with succeeding data")
+    void testCondition1Succeeds() {
         Point[] points = {
             new Point(0, 0),
             new Point(1, 1),
@@ -75,9 +76,33 @@ class ConditionCheckerTest {
 
         // Test that last triplet is counted as not fitting within radius
         assertTrue(checker.checkCondition1(points, 2));
+    }
+
+    @Test
+    @DisplayName("Test condition 1 with failing data")
+    void testCondition1Fails() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(1, 1),
+            new Point(-1, -1),
+            new Point(0, 3), // Not within radius=2 of previous 3
+        };
 
         // Big circle, no triplet that's not encompassed by this radius
         assertFalse(checker.checkCondition1(points, 10));
+    }
+
+    @Test
+    @DisplayName("Test condition 1 with invalid input")
+    void testCondition1RejectsInvalidInput() {
+        Point[] points = {
+            new Point(0, 0),
+            new Point(1, 1),
+            new Point(-1, -1),
+            new Point(0, 3), // Not within radius=2 of previous 3
+        };
+
+        assertFalse(checker.checkCondition1(points, -1));
     }
 
     @Test
