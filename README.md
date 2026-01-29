@@ -60,12 +60,42 @@ This section describes the specific contributions made by each team member for t
 
 **Current state: “Foundation Established”** (state 2)
 
-Upon our initial meeting, we discussed and concluded answers to all of the points addressed in “Principles Established” and “Foundation Established". This laid a solid foundation for us to start working together as a team. While one could argue that we have also fulfilled all criteria under “In Use", there are some aspects of our ways of working that could be further solidified:
-1. _“Practices and tools are regularly inspected”_
-2. _“Procedures are in place to handle feedback on the team’s way of working”_
+<br>
+
+**Stage 1: "Principles Established"**
+- [x] Principles and constraints are committed to by the team.
+- [x] Principles and constraints are agreed to by the stakeholders.
+- [x] The tool needs of the work and its stakeholders are agreed.
+- [x] A recommendation for the approach to be taken is available.
+- [x] The context within which the team will operate is understood.
+- [x] The constraints that apply to the selection, acquisition, and use of practices and tools are known.
+
+<br>
+
+**Stage 2: "Principles Established"**
+- [x] The key practices and tools that form the foundation of the way-of-working are selected.
+- [x] Enough practices for work to start are agreed to by the team.
+- [x] All non-negotiable practices and tools have been identified.
+- [x] The gaps that exist between the practices and tools that are needed and the practices and tools that are available have been analyzed and understood.
+- [x] The capability gaps that exist between what is needed to execute the desired way of working and the capability levels of the team have been analyzed and understood.
+- [x] The selected practices and tools have been integrated to form a usable way-of-working>
+
+<br>
+
+Upon our initial meeting, we discussed and concluded answers to all of the points addressed in **“Principles Established”** and **“Foundation Established"**. This laid a solid foundation for us to start working together as a team. While one could argue that we have also fulfilled all criteria under **“In Use"**, there are some aspects of our ways of working that could be further solidified:
+
+<br>
+
+**Stage 3: "In Use"**
+- [x] The practices and tools are being used to do real work.
+- [ ] The use of the practices and tools selected are regularly inspected.
+- [x] The practices and tools are being adapted to the team’s context.
+- [x] The use of the practices and tools is supported by the team.
+- [x] Procedures are in place to handle feedback on the team’s way of working.
+- [ ] The practices and tools support team communication and collaboration.
 
 <br>
 
 **A simple way to address these would be to:**
 1. Our ways of working currently rely on following our set conventions manually. There are ways to automate checks and verifications like this through GitHub Actions.
-2. Reflect after each assignment, and evaluate if our ways of working need refinement. It is simpler to collect feedback throughout a “cycle” and apply it to the next one, rather than during an ongoing assignment (unless deemed absolutely necessary). 
+2. Reflect after each assignment, and evaluate if our ways of working need refinement. It is simpler to collect feedback throughout a “cycle” and apply it to the next one, rather than during an ongoing assignment (unless deemed absolutely necessary).
