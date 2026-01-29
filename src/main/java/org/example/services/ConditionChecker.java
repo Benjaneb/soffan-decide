@@ -294,7 +294,55 @@ public class ConditionChecker {
 
         return false;
     }
-  
+
+    /*
+    There exists at least one set of three data points, separated by exactly A PTS and B PTS
+    consecutive intervening points, respectively, that cannot be contained within or on a circle of
+    radius RADIUS1. In addition, there exists at least one set of three data points (which can be
+    the same or different from the three data points just mentioned) separated by exactly A PTS
+    and B PTS consecutive intervening points, respectively, that can be contained in or on a
+    circle of radius RADIUS2. Both parts must be true for the LIC to be true. The condition is
+    not met when NUMPOINTS < 5.
+
+    0 ≤ RADIUS2
+    */
+
+    public boolean checkCondition13(Point[] points, int apts, int bpts, double radius1, double radius2) {
+        int numpoints = points.length;
+        boolean withinRad1 = true; // Will need to be set to false for lic to be satisfied
+        boolean withinRad2 = false; // Will need to be set to true for lic to be satisfied
+
+        if (numpoints < 5 || radius2 < 0){
+            return false;
+        }
+
+        for (int i = 0; i + apts + bpts + 2 < numpoints; i++){
+
+
+            Point p1 = points[i];
+            // "separated by" meaning that the point is apts + 1 away
+            Point p2 = points[i + apts + 1];
+            Point p3 = points[i + apts + bpts + 2];
+
+            double radius = Utils.circumcircleRadius(p1, p2, p3);
+            
+            // If radius of circumcircle is greater than the maximum distance between two points, the triangle can be contained in a circle with the longest distance as it's diameter
+            double maxDistance = Math.max(Math.max(Utils.distance(p1, p2), Utils.distance(p2, p3)), Utils.distance(p1, p3)); 
+            if (Utils.doubleCompare(maxDistance, radius) == Utils.CompType.LT){
+                radius = maxDistance/2;
+            }
+
+            if (Utils.doubleCompare(radius, radius1) == Utils.CompType.GT) {
+                withinRad1 = false; // found a set of three points that cannot fit inside circle
+            } 
+            if (Utils.doubleCompare(radius, radius2) == Utils.CompType.LT || Utils.doubleCompare(radius, radius2) == Utils.CompType.EQ) {
+                withinRad2 = true; // found a set of three points that can fit inside circle
+            } 
+        }
+
+        return !withinRad1 && withinRad2;
+    }
+
     public boolean checkCondition14(Point[] points, int epts, int fpts, double area1, double area2) {
         // Check valid input
         if (epts < 1 || fpts < 1 || epts + fpts > points.length - 3) return false;
