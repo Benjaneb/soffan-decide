@@ -449,6 +449,54 @@ class ConditionCheckerTest {
     }
 
     @Test
+    @DisplayName("Test condition 13 succeeds with radius larger than radius1 and smaller than radius2")
+    void testCondition13Succeeds() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(-4, 0), //p1
+            new Point(1, 0),
+            new Point(4, 0), //p2
+            new Point(1, 1),
+            new Point(0, 1) //p3
+        };
+
+        // Test that radius larger than radius1 returns true
+        assertTrue(checker.checkCondition13(points, 1, 1, 3.999, 10.0));
+    }
+    
+    @Test
+    @DisplayName("Test condition 13 fails with radius smaller than radius1 or larger than radius2")
+    void testCondition13fails() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(-4, 0), //p1
+            new Point(1, 0),
+            new Point(4, 0), //p2
+            new Point(1, 1),
+            new Point(0, 1) //p3
+        };
+
+        // Test that radius smaller than radius1 returns false
+        assertFalse(checker.checkCondition13(points, 1, 1, 3.0, 3.5));
+    }
+
+    @Test
+    @DisplayName("Test condition 13 fails invalid input")
+    void testCondition13RejectsInvalidInput() {
+        // A, B & C form the correct angle
+        Point[] points = {
+            new Point(0, 0), //p1
+            new Point(0, 0),
+            new Point(0, 0), //p2
+            new Point(0, 0),
+            new Point(0, 0) //p3
+        };
+
+        // Test that input is invalid where numpoints < 5 returns false
+        assertFalse(checker.checkCondition13(points, 1, 1, 1, -1.0));
+    }
+
+    @Test
     @DisplayName("Test condition 14 fails")
     void testCondition14Fails() {
         Point[] points = {
