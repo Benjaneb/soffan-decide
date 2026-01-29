@@ -49,6 +49,9 @@ public class ConditionChecker {
     }
 
     public boolean checkCondition1(Point[] points, double radius1) {
+        if (radius1 < 0)
+            return false;
+
         for (int i = 0; i < points.length - 2; i++) {
             double meanX = (points[i].x() + points[i + 1].x() + points[i + 2].x()) / 3;
             double meanY = (points[i].y() + points[i + 1].y() + points[i + 2].y()) / 3;
@@ -64,6 +67,9 @@ public class ConditionChecker {
     }
 
     public boolean checkCondition2(Point[] points, double epsilon) {
+        if (epsilon < 0 || epsilon >= Math.PI)
+            return false;
+
         for (int i = 0; i < points.length - 2; i++) {
             Point p1 = points[i];
             Point p2 = points[i+1];
