@@ -34,17 +34,18 @@ public class ConditionChecker {
     (0 ≤ LENGTH1) 
     */
     public boolean checkCondition0(Point[] points, double length1) {
-        if (Utils.doubleCompare(length1, 0.0) == Utils.CompType.LT){
+        if (length1 < 0.0){
             return false;
         }
         for(int i = 0; i<points.length-1; i++){
             Point p1 = points[i];
             Point p2 = points[i+1];
             double dist = Utils.distance(p1, p2);
-            if (Utils.doubleCompare(dist, length1) == Utils.CompType.GT) {
+            if (dist > length1) {
                 return true;
-            }            
-        }return false;
+            }
+        }
+        return false;
     }
 
     public boolean checkCondition1(Point[] points, double radius1) {
@@ -91,9 +92,9 @@ public class ConditionChecker {
             Point p2 = points[i+1];
             Point p3 = points[i+2];
             double triangleArea = Utils.triangleArea(p1, p2, p3);
-            if (Utils.doubleCompare(triangleArea, area1) == Utils.CompType.GT) {
+            if (triangleArea > area1) {
                 return true;
-            }       
+            }
         }
         return false;
     }
@@ -134,7 +135,7 @@ public class ConditionChecker {
             Point p1 = points[i];
             Point p2 = points[i+1];
             double diff = p2.x() - p1.x();
-            if (Utils.doubleCompare(diff, 0) == Utils.CompType.LT) {
+            if (diff < 0) {
                 return true;
             }
         }
@@ -153,7 +154,7 @@ public class ConditionChecker {
                 double distance = samePoints
                     ? Utils.distance(first, points[j])
                     : Utils.distanceFromLine(first, last, points[j]);
-                if (Utils.doubleCompare(distance, dist) == Utils.CompType.GT) return true;
+                if (distance > dist) return true;
             }
         }
         return false;
@@ -174,7 +175,7 @@ public class ConditionChecker {
             Point p1 = points[i];
             Point p2 = points[i + kpts + 1];
             double distance = Utils.distance(p1, p2);
-            if (Utils.doubleCompare(distance, length1) == Utils.CompType.GT) {
+            if (distance > length1) {
                 return true;
             }
         }
@@ -207,19 +208,17 @@ public class ConditionChecker {
             
             // If radius of circumcircle is greater than the maximum distance between two points, the triangle can be contained in a circle with the longest distance as it's diameter
             double maxDistance = Math.max(Math.max(Utils.distance(p1, p2), Utils.distance(p2, p3)), Utils.distance(p1, p3)); 
-            if (Utils.doubleCompare(maxDistance, radius) == Utils.CompType.LT){
+            if (maxDistance < radius){
                 radius = maxDistance/2;
             }
 
-            if (Utils.doubleCompare(radius, radius1) == Utils.CompType.GT) {
+            if (radius > radius1) {
                 return true; // found a set of three points that cannot fit inside circle
-            } 
+            }
         }
 
         return false;
     }
-        
-        
 
     public boolean checkCondition9(Point[] points, double epsilon, int cpts, int dpts) {
         // Check valid input
@@ -267,7 +266,7 @@ public class ConditionChecker {
             Point p1 = points[i];
             Point p2 = points[i + gpts + 1];
             double diff = p2.x() - p1.x();
-            if (Utils.doubleCompare(diff, 0) == Utils.CompType.LT) {
+            if (diff < 0) {
                 return true;
             }
         }
@@ -331,14 +330,14 @@ public class ConditionChecker {
             
             // If radius of circumcircle is greater than the maximum distance between two points, the triangle can be contained in a circle with the longest distance as it's diameter
             double maxDistance = Math.max(Math.max(Utils.distance(p1, p2), Utils.distance(p2, p3)), Utils.distance(p1, p3)); 
-            if (Utils.doubleCompare(maxDistance, radius) == Utils.CompType.LT){
+            if (maxDistance < radius){
                 radius = maxDistance/2;
             }
 
-            if (Utils.doubleCompare(radius, radius1) == Utils.CompType.GT) {
+            if (radius > radius1) {
                 withinRad1 = false; // found a set of three points that cannot fit inside circle
             } 
-            if (Utils.doubleCompare(radius, radius2) == Utils.CompType.LT || Utils.doubleCompare(radius, radius2) == Utils.CompType.EQ) {
+            if (radius < radius2 || Utils.doubleEquals(radius, radius2)) {
                 withinRad2 = true; // found a set of three points that can fit inside circle
             } 
         }
