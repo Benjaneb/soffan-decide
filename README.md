@@ -53,3 +53,19 @@ This section describes the specific contributions made by each team member for t
 
 **Pierre Castañeda Segerström, pise@kth.se**
 - ...
+
+<br>
+
+## Ways of Working
+
+**Current state: “Foundation Established”** (state 2)
+
+Upon our initial meeting, we discussed and concluded answers to all of the points addressed in “Principles Established” and “Foundation Established". This laid a solid foundation for us to start working together as a team. While one could argue that we have also fulfilled all criteria under “In Use", there are some aspects of our ways of working that could be further solidified:
+1. _“Practices and tools are regularly inspected”_
+2. _“Procedures are in place to handle feedback on the team’s way of working”_
+
+<br>
+
+**A simple way to address these would be to:**
+1. Our ways of working currently rely on following our set conventions manually. There are ways to automate checks and verifications like this through GitHub Actions.
+2. Reflect after each assignment, and evaluate if our ways of working need refinement. It is simpler to collect feedback throughout a “cycle” and apply it to the next one, rather than during an ongoing assignment (unless deemed absolutely necessary). 
