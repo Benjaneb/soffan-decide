@@ -22,19 +22,45 @@ class ConditionCheckerTest {
     }
   
     @Test
-    @DisplayName("Test condition 0")
-    void testCondition0() {
+    @DisplayName("Test condition 0 succeeds")
+    void testCondition0Succeeds() {
         Point[] points = {
             new Point(0, 0), 
-            new Point(1, 0), // Distance of 1 
-            new Point(-1, 0), // Distance of 2
-            new Point(5, 5) // Distance of 2
+            new Point(2, 0), // Distance of 2 
+            new Point(0, 0), // Distance of 2
+            new Point(4, 3) // Distance of 5
         };
         
         // Test that there is a set of two points greater than the provided length
         assertTrue(checker.checkCondition0(points, 0));
-        assertTrue(checker.checkCondition0(points, 2));
-        assertFalse(checker.checkCondition0(points, 10)); // Length greater than distance between points
+    }
+    
+    @Test
+    @DisplayName("Test condition 0 fails")
+    void testCondition0Fails() {
+        Point[] points = {
+            new Point(0, 0), 
+            new Point(2, 0), // Distance of 2 
+            new Point(0, 0), // Distance of 2
+            new Point(4, 3) // Distance of 5
+        };
+        
+        // Test that there is no set of two points greater than the provided length
+        assertFalse(checker.checkCondition0(points, 10)); // Length1 greater than distance between points
+    }
+
+    @Test
+    @DisplayName("Test condition 0 invalid input")
+    void testCondition0RejectInvalidInput() {
+        Point[] points = {
+            new Point(0, 0), 
+            new Point(2, 0), // Distance of 2 
+            new Point(0, 0), // Distance of 2
+            new Point(4, 3) // Distance of 5
+        };
+        
+        // Test that there is no set of two points greater than the provided length
+        assertFalse(checker.checkCondition0(points, -1));
     }
     
     @Test
