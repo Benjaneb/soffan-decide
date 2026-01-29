@@ -43,16 +43,16 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 This section describes the specific contributions made by each team member for this assignment.
 
 **Benjamin Widman, bwidman@kth.se**
-- ...
+- Implementing LIC1, LIC2, LIC9, LIC10 & FUV as well as doing some refactoring.
 
 **David Hübinette, davpers@kth.se**
-- ...
+- Implementing LIC0, LIC8 & LIC 13 as well as doing some refactoring.
 
 **Daglas Aitsen, daglas@kth.se**
-- ...
+- Implementing LIC5, LIC6, LIC7, LIC11 & PUM as well as setting up Gradle and doing some documentation.
 
 **Pierre Castañeda Segerström, pise@kth.se**
-- ...
+- Implementing LIC3, LIC4, LIC12 & LIC14 as well as setting up the class structure and doing most of the documentation.
 
 <br>
 
